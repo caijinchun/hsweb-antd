@@ -14,12 +14,13 @@ export default {
   },
   effects: {
     *fetch({ payload: { page = 1 } }, { call, put }) {
-      const { data, headers } = yield call(usersService.fetch, { page });
+      const { result, headers } = yield call(usersService.fetch, { page });
+      console.log("ddd")
       yield put({
         type: 'save',
         payload: {
-          data,
-          total: parseInt(headers['x-total-count'], 10),
+          data:result.data,
+          total: 1,
           page: parseInt(page, 10),
         },
       });

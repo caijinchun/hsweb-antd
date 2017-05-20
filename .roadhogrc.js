@@ -22,5 +22,12 @@ export default {
   		    ["import", { "libraryName": "antd", "style": true}]
         ]
       }
-  }
+  },
+  "proxy": {
+    "/api": {
+      "target": "http://localhost:8080/",
+      "changeOrigin": true,
+      "pathRewrite": { "^/api/v1" : "" }
+    }
+  },
 }

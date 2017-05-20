@@ -37,31 +37,25 @@ function Users({ dispatch, list: dataSource, loading, total, page: current }) {
 
   const columns = [
     {
-      title: 'Name',
+      title: '用户名',
       dataIndex: 'name',
       key: 'name',
       render: text => <a href="">{text}</a>,
-    },
-    {
-      title: 'Email',
-      dataIndex: 'email',
-      key: 'email',
-    },
-    {
-      title: 'Website',
-      dataIndex: 'website',
-      key: 'website',
-    },
-    {
-      title: 'Operation',
+    },{
+      title: '姓名',
+      dataIndex: 'username',
+      key: 'username',
+      render: text => <a href="">{text}</a>,
+    },{
+      title: '操作',
       key: 'operation',
       render: (text, record) => (
         <span className={styles.operation}>
           <UserModal record={record} onOk={editHandler.bind(null, record.id)}>
-            <a>Edit</a>
+            <a>编辑</a>
           </UserModal>
           <Popconfirm title="Confirm to delete?" onConfirm={deleteHandler.bind(null, record.id)}>
-            <a href="">Delete</a>
+            <a href="">删除</a>
           </Popconfirm>
         </span>
       ),
@@ -73,7 +67,7 @@ function Users({ dispatch, list: dataSource, loading, total, page: current }) {
       <div>
         <div className={styles.create}>
           <UserModal record={{}} onOk={createHandler}>
-            <Button type="primary">Create User</Button>
+            <Button type="primary">新增</Button>
           </UserModal>
         </div>
         <Table
