@@ -34,15 +34,15 @@ export default {
       payload,
     }, { call, put }) {
       const data = yield call(query, parse(payload))
-    //  if (data.success && data.user) {
+      if (data.success && data.result) {
         yield put({
           type: 'querySuccess',
-          payload: data.user,
+          payload: data.result,
         })
         if (location.pathname === '/login') {
           yield put(routerRedux.push('/dashboard'))
         }
-    /*  } else {
+      } else {
         if (location.pathname !== '/login') {
           let from = location.pathname
           if (location.pathname === '/dashboard') {
@@ -50,7 +50,7 @@ export default {
           }
           window.location = `${location.origin}/login?from=${from}`
         }
-      }*/
+      }
     },
 
     *logout ({
@@ -58,7 +58,7 @@ export default {
     }, { call, put }) {
       const data = yield call(logout, parse(payload))
       if (data.success) {
-        yield put({ type: 'queryUser' })
+        yield put({ type: 'query' })
       } else {
         throw (data)
       }

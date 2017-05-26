@@ -50,10 +50,10 @@ const fetch = (options) => {
       })
     })
   } else if (fetchType === 'YQL') {
-    url = `http://query.yahooapis.com/v1/public/yql?q=select * from json where url='${options.url}?${qs.stringify(options.data)}'&format=json`
+    url = `http://query.yahooapis.com/v1/public/yql?q=select * from json where url='${options.url}?${encodeURIComponent(qs.stringify(options.data))}'&format=json`
     data = null
   }
-
+  return axios(options)
   switch (method.toLowerCase()) {
     case 'get':
       return axios.get(url, {
@@ -64,7 +64,7 @@ const fetch = (options) => {
         data: cloneData,
       })
     case 'post':
-      return axios.post(url, cloneData)
+      return axios(options)
     case 'put':
       return axios.put(url, cloneData)
     case 'patch':
@@ -90,7 +90,6 @@ export default function request (options) {
 
   return fetch(options).then((response) => {
     const { statusText, status } = response
-    console.log("abc")
     let data = options.fetchType === 'YQL' ? response.data.query.results.json : response.data
     return {
       success: true,
